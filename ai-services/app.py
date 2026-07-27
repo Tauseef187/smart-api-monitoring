@@ -5,15 +5,22 @@ import numpy as np
 import pandas as pd
 from collections import deque
 from datetime import datetime
+import os
 
 app = Flask(__name__)
 CORS(app)
 
 # ── Load model artifacts ──────────────────────────────────────────────
-model     = joblib.load('anomaly_model.pkl')
-scaler    = joblib.load('scaler.pkl')
-FEATURES  = joblib.load('feature_names.pkl')
-THRESHOLD = joblib.load('threshold.pkl')
+# model     = joblib.load('anomaly_model.pkl')
+# scaler    = joblib.load('scaler.pkl')
+# FEATURES  = joblib.load('feature_names.pkl')
+# THRESHOLD = joblib.load('threshold.pkl')
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+model     = joblib.load(os.path.join(BASE_DIR, 'anomaly_model.pkl'))
+scaler    = joblib.load(os.path.join(BASE_DIR, 'scaler.pkl'))
+FEATURES  = joblib.load(os.path.join(BASE_DIR, 'feature_names.pkl'))
+THRESHOLD = joblib.load(os.path.join(BASE_DIR, 'threshold.pkl'))
 
 # ── In-memory rolling window per API endpoint ─────────────────────────
 # Stores last 10 readings per apiId so we can compute rolling features
@@ -168,5 +175,8 @@ def predict_batch():
         return jsonify({ 'error': str(e) }), 500
 
 
+# if __name__ == '__main__':
+#     app.run(host='0.0.0.0', port=5001, debug=True)
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5001, debug=True)
+    port = int(os.environ.get('PORT', 5001))
+    app.run(host='0.0.0.0', port=port, debug=False)
