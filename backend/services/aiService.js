@@ -1,7 +1,7 @@
 // backend/services/aiService.js
 const axios = require('axios');
 
-const AI_SERVICE_URL = process.env.AI_SERVICE_URL || 'https://smart-api-monitoring.onrender.com';
+const AI_SERVICE_URL = process.env.AI_SERVICE_URL || 'https://smart-api-monitoring-1.onrender.com/';
 
 /**
  * Send a single reading to the ML model for anomaly prediction.
