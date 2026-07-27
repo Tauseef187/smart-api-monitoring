@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-slate-800;
+  }
+
+  body {
+    @apply bg-brand-bg font-sans text-slate-100 antialiased;
+    background-image: radial-gradient(circle at top, rgba(59, 130, 246, 0.14), transparent 22%);
+  }
+
+  ::selection {
+    @apply bg-brand-primary/30 text-white;
+  }
+}
+
+@layer components {
+  .glass-panel {
+    @apply rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl;
+  }
+
+  .card-surface {
+    @apply rounded-3xl border border-slate-800 bg-slate-900/80 shadow-2xl shadow-slate-950/30;
+  }
+
+  .gradient-border {
+    position: relative;
+  }
+
+  .gradient-border::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 1.5rem;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(59,130,246,0.7), rgba(99,102,241,0.45), rgba(34,197,94,0.3));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(71, 85, 105, 0.7);
+  border-radius: 999px;
+}
+
